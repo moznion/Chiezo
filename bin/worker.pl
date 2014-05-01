@@ -63,7 +63,7 @@ $ur->run(sub {
 
             my $mecab = Text::MeCab->new;
             for (my $node = $mecab->parse($word); $node->surface; $node = $node->next) {
-                $post_text .= $node->surface . "\t";
+                $post_text .= $node->surface . "\t\t";
                 $post_text .= $node->feature . "\n";
             }
             $ur->post(">||\n" . decode_utf8($post_text) . "||<", @tags);
