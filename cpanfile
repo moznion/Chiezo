@@ -7,3 +7,4 @@ requires 'Unruly';
 requires 'URL::Encode';
 requires 'Web::Query';
 requires 'Text::MeCab';
+requires 'Encode', '2.60';
