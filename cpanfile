@@ -6,3 +6,4 @@ requires 'Log::Minimal';
 requires 'Unruly';
 requires 'URL::Encode';
 requires 'Web::Query';
+requires 'Text::MeCab';

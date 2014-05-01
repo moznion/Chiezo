@@ -9,6 +9,7 @@ use Log::Minimal;
 use Unruly;
 use URL::Encode qw/url_encode_utf8/;
 use Web::Query;
+use Text::MeCab;
 
 use constant {
     WIKIPEDIA_BASE_URL => 'http://ja.wikipedia.org/wiki/',
@@ -53,6 +54,17 @@ $ur->run(sub {
             }
 
             my $post_text = sprintf("%s %s", substr($text, 0, 100), $url);
+            $ur->post($post_text, @tags);
+        }
+        elsif ($message->{text} =~ /^mecab!\s(.+)\s#/) {
+            my $word      = $1;
+            my $post_text = '';
+
+            my $mecab = Text::MeCab->new;
+            for (my $node = $mecab->parse(); $node->surface; $node = $node->next) {
+                $post_text .= $node->surface . "\t";
+                $post_text .= $node->feature . "\n";
+            }
             $ur->post($post_text, @tags);
         }
     });
